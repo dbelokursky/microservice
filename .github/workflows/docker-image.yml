@@ -30,7 +30,7 @@ jobs:
         arguments: build
 
     - name: ls output
-      run: ls -la
+      run: ls -la task01
 
     - name: Docker login
       env: 
