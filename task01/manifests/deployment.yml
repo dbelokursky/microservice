@@ -18,4 +18,4 @@ spec:
         - name: task01
           image: dbelokursky/otus:task01
           ports:
-            - containerPort: 8080
+          - containerPort: 8080
