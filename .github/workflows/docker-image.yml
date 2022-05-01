@@ -40,4 +40,4 @@ jobs:
       run: docker image build -t dbelokursky/otus:task01 -f ./task01/Dockerfile .
 
     - name: Docker push
-      run: docker image push -t dbelokursky/otus:task01
+      run: docker image push dbelokursky/otus:task01
