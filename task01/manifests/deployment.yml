@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task01-deployment
+  labels:
+    app: task01
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: task01
+  template:
+    metadata:
+      labels:
+        app: task01
+    spec:
+      containers:
+        - name: task01
+          image: dbelokursky/otus:task01
+          ports:
+            - containerPort: 8080
