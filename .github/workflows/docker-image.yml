@@ -29,9 +29,6 @@ jobs:
       with:
         arguments: build
 
-    - name: ls output
-      run: ls -la task01
-
     - name: Docker login
       env: 
         DOCKER_USER: ${{secrets.DOCKER_USER}}
