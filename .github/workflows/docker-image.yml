@@ -37,7 +37,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
     - name: Build the Docker image
-      run: docker image build --tag dbelokursky/otus:task01_$(date +%s) -f ./task01/Dockerfile .
+      run: docker image build -t dbelokursky/otus:task01_$(date +%s) -f ./task01/Dockerfile .
 
     - name: Docker push
-      run: docker image push dbelokursky/otus:task01_$(date +%s)
+      run: docker image push -t dbelokursky/otus:task01_$(date +%s)
