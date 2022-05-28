@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: arch.homework
+  name: arch-homework
 spec:
   selector:
     app: task01
