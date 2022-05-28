@@ -17,5 +17,6 @@ spec:
       containers:
         - name: task01
           image: dbelokursky/otus:task01
+          imagePullPolicy: Always
           ports:
           - containerPort: 8080
