@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task02-deployment
+  labels:
+    app: task02
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: task02
+  template:
+    metadata:
+      labels:
+        app: task02
+    spec:
+      containers:
+        - name: task02
+          image: dbelokursky/task02:0.0.1
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
