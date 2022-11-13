@@ -1,0 +1,65 @@
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://repo1.maven.org/maven2" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/releases/"
+        }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        // Updated version can be passed via command line arg as -PopenApiGeneratorVersion=VERSION
+        classpath "org.openapitools:openapi-generator-gradle-plugin:6.2.1"
+    }
+}
+
+
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'java'
+}
+
+group 'ru.dbelokursky'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'com.h2database:h2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+apply plugin: 'org.openapi.generator'
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/task03/src/main/resources/specs/openapi.yml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = "ru.dbelokursky.rest.api"
+    modelPackage = "ru.dbelokursky.rest.model"
+//    invokerPackage = "ru.dbelokursky.api.invoker"
+    configOptions = [
+            dateLibrary: "java8"
+    ]
+}
+compileJava.dependsOn tasks.openApiGenerate
+

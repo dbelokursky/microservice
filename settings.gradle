@@ -1,4 +1,5 @@
 rootProject.name = 'microservice'
 include 'task01'
 include 'task02'
+include 'task03'
 
