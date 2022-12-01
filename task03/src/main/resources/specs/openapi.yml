@@ -7,7 +7,7 @@ info:
     email: dbelokursky@gmail.com
   version: 1.0.0
 servers:
-  - url: http://localhost:8000
+  - url: http://localhost:8000/
 tags:
   - name: user
     description: Operations about user
