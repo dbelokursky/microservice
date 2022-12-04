@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: task02
-          image: dbelokursky/task02:0.0.3
+          image: dbelokursky/task02:test
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           livenessProbe:
