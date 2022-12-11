@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.dbelokursky.mapper.UserMapper;
 import ru.dbelokursky.repository.UserRepository;
 import ru.dbelokursky.rest.model.User;
-import ru.dbelokursky.service.exception.UserNotFoundException;
+import ru.dbelokursky.exception.UserNotFoundException;
 
 @Service
 @RequiredArgsConstructor

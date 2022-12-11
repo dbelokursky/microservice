@@ -7,7 +7,7 @@ info:
     email: dbelokursky@gmail.com
   version: 1.0.0
 servers:
-  - url: http://localhost:8000/
+  - url: http://localhost:8000
 tags:
   - name: user
     description: Operations about user
@@ -87,10 +87,6 @@ components:
     User:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
         username:
           type: string
           example: theUser
@@ -111,3 +107,8 @@ components:
           description: User Status
           format: int32
           example: 1
+    ResponseStatus:
+      type: object
+      properties:
+        status:
+          type: string

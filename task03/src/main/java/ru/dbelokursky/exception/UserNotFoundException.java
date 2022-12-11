@@ -1,4 +1,4 @@
-package ru.dbelokursky.service.exception;
+package ru.dbelokursky.exception;
 
 public class UserNotFoundException extends RuntimeException {
 }
