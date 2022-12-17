@@ -16,15 +16,17 @@ spec:
     spec:
       containers:
         - name: task03
-          image: dbelokursky/task03:0.0.3
+          image: dbelokursky/task03:0.0.4
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
           livenessProbe:
+            initialDelaySeconds: 60
             httpGet:
               path: /health
               port: 8000
           readinessProbe:
+            initialDelaySeconds: 60
             httpGet:
               path: /health
               port: 8000
