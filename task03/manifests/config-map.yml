@@ -10,8 +10,8 @@ data:
       datasource:
         url: jdbc:postgresql://psql-postgresql:5432/user_db
         driver-class-name: org.postgresql.Driver
-        username: user_pg
-        password: pass_pg
+        username: ${PG_USER}
+        password: ${PG_PASSWORD}
       sql:
         init:
           mode: always

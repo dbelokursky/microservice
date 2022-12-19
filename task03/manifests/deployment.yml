@@ -34,6 +34,19 @@ spec:
             - name: config
               mountPath: /config
               readOnly: true
+          env:
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task03-secret
+                  key: PG_PASSWORD
+                  optional: false
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: task03-secret
+                  key: PG_USER
+                  optional: false
       volumes:
         - name: config
           configMap:
