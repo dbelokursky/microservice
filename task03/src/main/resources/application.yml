@@ -1,0 +1,14 @@
+server:
+  port: 8000
+spring:
+  datasource:
+    url: jdbc:postgresql://psql-postgresql:5432/user_db
+    driver-class-name: org.postgresql.Driver
+    username: user_pg
+    password: pass_pg
+  sql:
+    init:
+      mode: always
+springdoc:
+  api-docs:
+    path: /api-docs

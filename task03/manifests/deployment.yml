@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task03-deployment
+  labels:
+    app: task03
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task03
+  template:
+    metadata:
+      labels:
+        app: task03
+    spec:
+      containers:
+        - name: task03
+          image: dbelokursky/task03:0.0.4
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            initialDelaySeconds: 60
+            httpGet:
+              path: /health
+              port: 8000
+          readinessProbe:
+            initialDelaySeconds: 60
+            httpGet:
+              path: /health
+              port: 8000
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+          env:
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task03-secret
+                  key: PG_PASSWORD
+                  optional: false
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: task03-secret
+                  key: PG_USER
+                  optional: false
+      volumes:
+        - name: config
+          configMap:
+            name: task03-cm
+            items:
+              - key: application.yml
+                path: application.yml
+

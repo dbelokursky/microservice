@@ -1,0 +1,106 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://repo1.maven.org/maven2" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/releases/"
+        }
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        // Updated version can be passed via command line arg as -PopenApiGeneratorVersion=VERSION
+        classpath "org.openapitools:openapi-generator-gradle-plugin:6.2.1"
+    }
+}
+
+
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'java'
+    id 'idea'
+    id "com.github.johnrengelman.processes" version "0.5.0"
+}
+
+group 'ru.dbelokursky'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+//    implementation 'com.h2database:h2'
+    implementation 'org.postgresql:postgresql:42.5.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
+    implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.13'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    compileOnly 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+
+def generatedDir = "${buildDir}/generated/sources"
+
+sourceSets {
+    main {
+        java {
+            srcDir generatedDir
+        }
+    }
+}
+
+idea {
+    module {
+        generatedSourceDirs.addAll(file(generatedDir))
+    }
+}
+
+apply plugin: 'org.openapi.generator'
+apply plugin: 'idea'
+
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/task03/src/main/resources/specs/openapi.yml".toString()
+    outputDir = "$buildDir/generated/sources".toString()
+    apiPackage = "ru.dbelokursky.rest.api"
+    modelPackage = "ru.dbelokursky.rest.model"
+
+    configOptions = [
+            interfaceOnly: 'true',
+            skipDefaultInterface: 'true',
+            useApiIgnore:'fales',
+            swaggerAnnotations: 'true',
+            useBeanValidation: 'true',
+            library: 'spring-boot',
+            oas3: 'true',
+            openApiNullable: 'false',
+    ]
+
+    globalProperties = [
+            apis: "",
+            models: "",
+            supportingFiles: "ApiUtil.java"
+    ]
+}
+//compileJava.dependsOn tasks.idea
+compileJava.dependsOn tasks.openApiGenerate
+
