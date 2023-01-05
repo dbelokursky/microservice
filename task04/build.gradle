@@ -78,7 +78,7 @@ apply plugin: 'idea'
 
 openApiGenerate {
     generatorName = "spring"
-    inputSpec = "$rootDir/task03/src/main/resources/specs/openapi.yml".toString()
+    inputSpec = "$rootDir/task04/src/main/resources/specs/openapi.yml".toString()
     outputDir = "$buildDir/generated/sources".toString()
     apiPackage = "ru.dbelokursky.rest.api"
     modelPackage = "ru.dbelokursky.rest.model"

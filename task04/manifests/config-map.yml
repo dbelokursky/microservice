@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: task03-cm
+  name: task04-cm
 data:
   application.yml: |
     server:
