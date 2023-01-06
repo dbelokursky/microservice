@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: task04-deployment
   labels:
-    app: task03
+    app: task04
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: task03
+      app: task04
   template:
     metadata:
       labels:
-        app: task03
+        app: task04
     spec:
       containers:
-        - name: task03
+        - name: task04
           image: dbelokursky/task04:0.0.1
           imagePullPolicy: Always
           ports:
@@ -38,19 +38,19 @@ spec:
             - name: PG_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: task03-secret
+                  name: task04-secret
                   key: PG_PASSWORD
                   optional: false
             - name: PG_USER
               valueFrom:
                 secretKeyRef:
-                  name: task03-secret
+                  name: task04-secret
                   key: PG_USER
                   optional: false
       volumes:
         - name: config
           configMap:
-            name: task03-cm
+            name: task04-cm
             items:
               - key: application.yml
                 path: application.yml
