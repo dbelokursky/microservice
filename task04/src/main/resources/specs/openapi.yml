@@ -82,6 +82,15 @@ paths:
           description: Bad request
         '404':
           description: User not found
+  /error:
+    get:
+      tags:
+        - error
+      summary: Get 500 error
+      description: "Returns internal server error"
+      responses:
+        '500':
+          description: 'Internal server error'
 components:
   schemas:
     User:

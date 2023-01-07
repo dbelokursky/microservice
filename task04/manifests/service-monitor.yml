@@ -1,7 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: task04-service-monitor
+  name: task04-servicemonitor
+  labels:
+    app: task04
+    release: prometheus
 spec:
   selector:
     matchLabels:
