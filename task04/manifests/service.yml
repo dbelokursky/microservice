@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task04-service
+  labels:
+    app: task04
+spec:
+  selector:
+    app: task04
+  ports:
+    - protocol: TCP
+      name: web
+      port: 8000
+      targetPort: 8000
