@@ -11,5 +11,4 @@ spec:
       app.kubernetes.io/name: ingress-nginx
   endpoints:
     - port: metrics
-      path: /metrics
       interval: 15s

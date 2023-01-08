@@ -7,6 +7,8 @@ kubectl apply -f service.yml
 kubectl apply -f ingress.yml
 kubectl apply -f postgres-pv.yml
 kubectl apply -f postgres-pvc.yml
+kubectl apply -f service-monitor.yml
+kubectl apply -f ingress-nginx-servicemonitor.yml
 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/ \
 && helm repo add bitnami https://charts.bitnami.com/bitnami \
@@ -19,4 +21,11 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/ \
 --set auth.username=user_pg \
 --set auth.password=pass_pg \
 --set auth.database=user_db \
-&& helm install prometheus prometheus-community/kube-prometheus-stack -n m
+&& helm install prometheus prometheus-community/kube-prometheus-stack -n m \
+&& helm upgrade nginx ingress-nginx \
+--repo https://kubernetes.github.io/ingress-nginx \
+--namespace m \
+--set controller.metrics.enabled=true \
+--set-string controller.podAnnotations."prometheus\.io/scrape"="true" \
+--set-string controller.podAnnotations."prometheus\.io/port"="10254"
+
