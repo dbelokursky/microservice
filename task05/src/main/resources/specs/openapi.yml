@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: User API
+  description: |-
+    The simple RESTful CRUD for creating, deleting, viewing and updating users.
+  contact:
+    email: dbelokursky@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://arch.homework
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+    put:
+      tags:
+        - user
+      summary: Update user by id
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      description: 'Getting user by id'
+      parameters:
+        - name: id
+          in: path
+          description: 'The user id that needs to be fetched. '
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+
+    delete:
+      tags:
+        - user
+      summary: Delete user by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Bad request
+        '404':
+          description: User not found
+  /error:
+    get:
+      tags:
+        - error
+      summary: Get 500 error
+      description: "Returns internal server error"
+      responses:
+        '500':
+          description: 'Internal server error'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        phone:
+          type: string
+          example: '12345'
+        userStatus:
+          type: integer
+          description: User Status
+          format: int32
+          example: 1
+    ResponseStatus:
+      type: object
+      properties:
+        status:
+          type: string
