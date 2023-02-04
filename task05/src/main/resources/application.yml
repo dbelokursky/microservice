@@ -31,4 +31,4 @@ management:
       export:
         enabled: true
 app:
-  version: v1
+  version: v2

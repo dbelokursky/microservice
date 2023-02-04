@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: task05-ingress
+spec:
+  hosts:
+    - '*'
+  gateways:
+    - task05-gateway
+  http:
+    - route:
+        - destination:
+            host: task05-v1
+          weight: 50
+        - destination:
+            host: task05-v2
+          weight: 50

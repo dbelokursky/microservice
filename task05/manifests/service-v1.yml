@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: task05-v1
+  labels:
+    app: task05
+    version: v1
+spec:
+  selector:
+    app: task05
+    version: v1
+  ports:
+    - protocol: TCP
+      name: web
+      port: 80
+      targetPort: 8000

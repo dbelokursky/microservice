@@ -4,5 +4,4 @@ COPY /build/libs/task05*.jar /app/app.jar
 EXPOSE 8000
 CMD ["java", \
 "-jar", \
-"/app/app.jar", \
-"--spring.config.location=/config/application.yml"]
+"/app/app.jar"]
