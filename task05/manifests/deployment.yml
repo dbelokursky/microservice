@@ -55,3 +55,41 @@ spec:
               - key: application.yml
                 path: application.yml
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task05-v1-deployment
+  labels:
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: task05
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: task05
+        version: v1
+    spec:
+      containers:
+        - name: task05
+          image: dbelokursky/task05:0.0.1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-server-v1
+  labels:
+    version: v1
+spec:
+  type: ClusterIP
+  ports:
+    - name: echo-port
+      port: 80
+      targetPort: 8080
+  selector:
+    app: echo-server
+    version: v1

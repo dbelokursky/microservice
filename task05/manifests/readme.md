@@ -30,14 +30,14 @@ helm repo add bitnami https://charts.bitnami.com/bitnami \
 ```
 ### Install an ingress gateway:
 ```shell script
-helm repo add istio https://istio-release.storage.googleapis.com/charts
-helm repo update 
-helm install istio-base istio/base -n istio-system 
-helm install istiod istio/istiod -n istio-system --wait
-kubectl create namespace istio-system
-kubectl create namespace istio-ingress
-kubectl label namespace istio-ingress istio-injection=enabled
-helm install istio-ingress istio/gateway -n istio-ingress --wait
+kubectl create namespace istio-system \
+&& kubectl create namespace istio-ingress \
+&& kubectl label namespace istio-ingress istio-injection=enabled \
+&& helm repo add istio https://istio-release.storage.googleapis.com/charts \
+&& helm repo update \
+&& helm install istio-base istio/base -n istio-system \
+&& helm install istiod istio/istiod -n istio-system --wait \
+&& helm delete istio-ingress istio/gateway -n istio-ingress --wait
 ```
 
 ### Status of the installation can be verified using Helm:
@@ -52,13 +52,14 @@ Jaeger - решение трассировки. Компоненты Istio, та
 Добавить репозиторий в Helm:
 
 ```shell script
-helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
-helm repo update
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts \
+&& helm repo update
 ```
 Установить оператор, разворачивающий Jaeger:
 
 ```shell script
-helm install --version "2.19.0" -n jaeger-operator -f jaeger/operator-values.yaml \
+kubectl create namespace jaeger-operator \
+&& helm install --version "2.19.0" -n jaeger-operator -f jaeger/operator-values.yaml \
 jaeger-operator jaegertracing/jaeger-operator
 ``` 
 
@@ -72,4 +73,63 @@ kubectl apply -f jaeger/jaeger.yaml
 
 ```shell script
 kubectl get po -n jaeger -l app.kubernetes.io/instance=jaeger
+```
+
+Открыть web-интерфейс Jaeger:
+
+```shell script
+minikube service -n jaeger jaeger-query-nodeport
+```
+
+Установить оператор, разворачивающий Istio:
+
+```shell script
+istioctl operator init --watchedNamespaces istio-system --operatorNamespace istio-operator
+```
+
+Развернуть Istio c помощью оператора:
+
+```shell script
+kubectl apply -f istio/istio.yaml
+```
+
+Проверить состояние Istio:
+
+```shell script
+kubectl get all -n istio-system -l istio.io/rev=default
+```
+
+Установить настройки по-умолчанию:
+
+```shell
+kubectl apply -f istio/disable-mtls.yaml
+```
+
+### Устанавливаем Kiali
+
+Kiali - доска управления Service mesh
+
+Добавить репозиторий в Helm:
+
+```shell script
+helm repo add kiali https://kiali.org/helm-charts
+helm repo update
+```
+
+Установить Kiali Operator, разворачивающий Kiali
+
+```shell script
+helm install --version "1.33.1" -n kiali-operator -f kiali/operator-values.yaml kiali-operator kiali/kiali-operator
+```
+
+Развернуть Kiali:
+
+```shell script
+kubectl apply -f kiali/kiali.yaml
+```
+
+Проверить состояние Kiali:
+
+```shell script
+kubectl get po -n kiali -l app.kubernetes.io/name=kiali
 ```
