@@ -30,10 +30,3 @@ any new pods that are created in that namespace will automatically have a sideca
 ```shell script
 kubectl label namespace m istio-injection=enabled --overwrite
 ```
-
-
----------
-
-```yaml
-minikube service -n <namespace> <service>
-```
