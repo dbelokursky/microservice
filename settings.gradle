@@ -4,4 +4,6 @@ include 'task02'
 include 'task03'
 include 'task04'
 include 'task05'
+include 'task06_1'
+include 'task06_2'
 

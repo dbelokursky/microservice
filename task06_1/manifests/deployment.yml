@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task04-deployment
+  labels:
+    app: task04
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task04
+  template:
+    metadata:
+      labels:
+        app: task04
+    spec:
+      containers:
+        - name: task04
+          image: dbelokursky/task04:0.0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          livenessProbe:
+            initialDelaySeconds: 60
+            httpGet:
+              path: /health
+              port: 8000
+          readinessProbe:
+            initialDelaySeconds: 60
+            httpGet:
+              path: /health
+              port: 8000
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+          env:
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task04-secret
+                  key: PG_PASSWORD
+                  optional: false
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: task04-secret
+                  key: PG_USER
+                  optional: false
+      volumes:
+        - name: config
+          configMap:
+            name: task04-cm
+            items:
+              - key: application.yml
+                path: application.yml
+
