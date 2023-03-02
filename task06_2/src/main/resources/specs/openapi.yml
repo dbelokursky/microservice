@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Auth API
+  description: |-
+    The simple auth api.
+  contact:
+    email: dbelokursky@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://arch.homework
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        default:
+          description: successful operation
+  /ticket/validate:
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        login:
+          type: string
+          example: vasaya
+        password:
+          type: string
+          example: password123
+    ResponseStatus:
+      type: object
+      properties:
+        status:
+          type: string
