@@ -12,13 +12,13 @@ tags:
   - name: user
     description: Operations about user
 paths:
-  /user:
+  /api/v1/user:
     post:
       tags:
         - user
       summary: Create user
       requestBody:
-        description: Created user object
+        description: Create user object
         content:
           application/json:
             schema:
@@ -26,7 +26,20 @@ paths:
       responses:
         default:
           description: successful operation
-  /ticket/validate:
+  /api/v1/login:
+    post:
+      tags:
+        - auth
+      summary: Login user
+      requestBody:
+        description: Login request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        default:
+          description: successful login
 
 components:
   schemas:
@@ -44,3 +57,12 @@ components:
       properties:
         status:
           type: string
+    LoginRequest:
+      type: object
+      properties:
+        login:
+          type: string
+          example: user@domain.com
+        password:
+          type: string
+          example: 3weegdvsdfwe!@#df
