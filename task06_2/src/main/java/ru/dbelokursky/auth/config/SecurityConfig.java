@@ -41,7 +41,7 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeHttpRequests()
-        .requestMatchers(LOGIN_ENDPOINT, ACTUATOR_ENDPOINT, H2_CONSOLE_ENDPOINT).permitAll()
+        .requestMatchers(H2_CONSOLE_ENDPOINT, LOGIN_ENDPOINT, ACTUATOR_ENDPOINT).permitAll()
         .requestMatchers(ADMIN_ENDPOINT).hasRole("ROLE_ADMIN")
         .anyRequest().authenticated()
         .and()
