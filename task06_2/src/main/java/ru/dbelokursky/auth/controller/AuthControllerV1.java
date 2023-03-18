@@ -1,6 +1,8 @@
 package ru.dbelokursky.auth.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,12 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import ru.dbelokursky.auth.dto.AuthenticationRequestDto;
-import ru.dbelokursky.auth.dto.AuthenticationResponseDto;
 import ru.dbelokursky.auth.entity.User;
 import ru.dbelokursky.auth.security.JwtTokenProvider;
 import ru.dbelokursky.auth.service.UserService;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/auth")
@@ -27,7 +26,7 @@ public class AuthControllerV1 {
   private final UserService userService;
 
   @PostMapping(value = "/login")
-  public ResponseEntity<AuthenticationResponseDto> login(@RequestBody AuthenticationRequestDto request) {
+  public ResponseEntity<Void> login(@RequestBody AuthenticationRequestDto request) {
     try {
       String login = request.login();
       String password = request.password();
@@ -35,14 +34,17 @@ public class AuthControllerV1 {
       User user = userService.findByLogin(login);
       String token = jwtTokenProvider.createToken(login, userService.getUserRoles(user));
 
-      return ResponseEntity.ok(new AuthenticationResponseDto(login, token));
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("Authorization", token);
+
+      return new ResponseEntity<>(headers, HttpStatus.OK);
     } catch (AuthenticationException e) {
       throw new BadCredentialsException("Invalid username or password");
     }
   }
 
-  @GetMapping(value = "/test")
-  public String test() {
-    return "WORKS " + UUID.randomUUID();
+  @GetMapping(value = "/validate")
+  public ResponseEntity<Void> validate() {
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
