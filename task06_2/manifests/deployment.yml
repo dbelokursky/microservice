@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: dbelokursky/task0602:0.0.1
+          image: dbelokursky/task0602:0.0.2
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
@@ -50,7 +50,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: task04-cm
+            name: task0602-cm
             items:
               - key: application.yml
                 path: application.yml
