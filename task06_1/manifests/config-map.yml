@@ -34,3 +34,6 @@ data:
         web:
           exposure:
             include: "*"
+      logging:
+        level:
+          org.springframework: DEBUG

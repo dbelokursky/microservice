@@ -42,3 +42,7 @@ jwt:
   token:
     secret: j6T@bdbmtCHWzTwb8SvMh9V$2sxU&FmM5
     lifetime: 900000
+
+logging:
+  level:
+    org.springframework: DEBUG
