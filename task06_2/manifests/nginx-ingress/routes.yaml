@@ -2,18 +2,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: echoserver
+  name: task04-ingress
 spec:
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: arch.homework
+      http:
         paths:
           - path: / # Направляем все запросы к echoserver
             pathType: Prefix
             backend:
               service:
-                name: echoserver
+                name: task04-service
                 port:
-                  number: 80
+                  number: 8000
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -22,8 +25,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: arch.homework
+      http:
         paths:
           - path: /auth(/|$)(.*) # Направляем все запросы /auth к auth-service. Создаем отдельный Ingress изза аннотаций rewrite
             pathType: Prefix
@@ -31,4 +36,4 @@ spec:
               service:
                 name: auth-service
                 port:
-                  number: 80
+                  number: 8000

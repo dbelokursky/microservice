@@ -11,7 +11,7 @@ spec:
           - pathType: Prefix
             backend:
               service:
-                name: task04-service
+                name: auth-service
                 port:
                   number: 8000
             path: /

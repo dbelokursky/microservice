@@ -29,3 +29,5 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/ \
 --set auth.password=pass_pg \
 --set auth.database=user_db 
 
+
+helm install psql bitnami/postgresql -n m --set persistence.existingClaim=postgres-pvc --set volumePermissions.enabled=true --set auth.username=user_pg --set auth.password=pass_pg --set auth.database=user_db 
