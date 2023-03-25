@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: dbelokursky/task0602:0.0.5
+          image: dbelokursky/task0602:0.0.6
           imagePullPolicy: Always
           ports:
             - containerPort: 8000

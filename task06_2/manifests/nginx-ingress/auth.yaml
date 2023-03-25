@@ -2,18 +2,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: echoserver # Перезаписываем уже существующий ingress
+  name: task04-ingress # Перезаписываем уже существующий ingress
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: http://auth-service.m.svc.cluster.local/api/v1/auth/validate
+    nginx.ingress.kubernetes.io/auth-url: http://auth-service.m.svc.cluster.local:8000/api/v1/auth/validate
     nginx.ingress.kubernetes.io/auth-response-headers: Authorization
 spec:
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: arch.homework
+      http:
         paths:
-          - path: / # Направляем все запросы к echoserver
+          - path: / # Направляем все запросы к task04-service
             pathType: Prefix
             backend:
               service:
-                name: echoserver
+                name: task04-service
                 port:
-                  number: 80
+                  number: 8000
