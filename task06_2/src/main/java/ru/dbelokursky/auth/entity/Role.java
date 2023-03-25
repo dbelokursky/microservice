@@ -10,21 +10,21 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Date;
 
 @Data
-@Table("AUTH_ROLE")
+@Table("auth_role")
 public class Role {
 
   @Id
-  @Column("ID")
+  @Column("id")
   private long id;
 
-  @Column("NAME")
+  @Column("name")
   private String name;
 
-  @Column("CREATED")
+  @Column("created")
   @CreatedDate
   private Date created;
 
-  @Column("UPDATED")
+  @Column("updated")
   @LastModifiedDate
   private Date updated;
 }

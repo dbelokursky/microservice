@@ -7,9 +7,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @AllArgsConstructor
-@Table("AUTH_USER_AUTH_ROLE")
+@Table("auth_user_auth_role")
 public class RoleRef {
 
-  @Column("AUTH_ROLE")
+  @Column("auth_role")
   private long roleId;
 }

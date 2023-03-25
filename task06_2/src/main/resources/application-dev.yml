@@ -1,19 +1,16 @@
 server:
   port: 8000
 spring:
-#  autoconfigure:
-#    exclude:
-#      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-#      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  #  autoconfigure:
+  #    exclude:
+  #      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  #      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
+  #  docker run --name habr-pg-13.3 -p 5432:5432 -e POSTGRES_USER=user_pg -e POSTGRES_PASSWORD=pass_pg -e POSTGRES_DB=user_db -d postgres:13.3
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: jdbc:postgresql://localhost:5432/user_db
+    driver-class-name: org.postgresql.Driver
+    username: user_pg
+    password: pass_pg
   sql:
     init:
       mode: always

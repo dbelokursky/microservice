@@ -13,30 +13,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@Table("AUTH_USER")
+@Table("auth_user")
 @Accessors(chain = true)
 public class User {
 
   @Id
-  @Column("ID")
+  @Column("id")
   private long id;
 
-  @Column("LOGIN")
+  @Column("login")
   private String login;
 
-  @Column("PASSWORD")
+  @Column("password")
   private String password;
 
-  @Column("STATUS")
+  @Column("status")
   private int status;
 
   private Set<RoleRef> roleIds = new HashSet<>();
 
-  @Column("CREATED")
+  @Column("created")
   @CreatedDate
   private Date created;
 
-  @Column("UPDATED")
+  @Column("updated")
   @LastModifiedDate
   private Date updated;
 }
