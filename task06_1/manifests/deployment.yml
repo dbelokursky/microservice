@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: task04
-          image: dbelokursky/task04:0.0.3
+          image: dbelokursky/task04:0.0.4
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
