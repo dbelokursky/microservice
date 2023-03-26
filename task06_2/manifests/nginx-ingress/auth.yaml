@@ -6,7 +6,7 @@ metadata:
   annotations:
     # не забываем про порт
     nginx.ingress.kubernetes.io/auth-url: http://auth-service.m.svc.cluster.local:8000/api/v1/auth/validate
-    nginx.ingress.kubernetes.io/auth-response-headers: Authorization
+    nginx.ingress.kubernetes.io/auth-response-headers: Authorization, App-Username
 spec:
   ingressClassName: nginx
   rules:

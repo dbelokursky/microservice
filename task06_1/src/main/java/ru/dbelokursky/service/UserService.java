@@ -9,4 +9,6 @@ public interface UserService {
   void update(ru.dbelokursky.rest.model.User user);
 
   void delete(long id);
+
+  ru.dbelokursky.rest.model.User findByUsername(String username);
 }

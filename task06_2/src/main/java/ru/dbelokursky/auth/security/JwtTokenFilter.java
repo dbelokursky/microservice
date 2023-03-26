@@ -2,8 +2,6 @@ package ru.dbelokursky.auth.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -25,9 +22,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-    String token = jwtTokenProvider.resolveToken(request);
+    String token = request.getHeader("Authorization");
 
-    if (!token.isEmpty() && jwtTokenProvider.validate(token)) {
+    if (token != null && jwtTokenProvider.validate(token)) {
       Authentication authentication = jwtTokenProvider.getAuthentication(token);
       if (authentication != null) {
         SecurityContextHolder.getContext().setAuthentication(authentication);

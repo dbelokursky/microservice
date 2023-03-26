@@ -2,7 +2,7 @@ server:
   port: 8000
 spring:
   datasource:
-    url: jdbc:postgresql://psql-postgresql:5432/user_db
+    url: jdbc:postgresql://localhost:5432/user_db
     driver-class-name: org.postgresql.Driver
     username: user_pg
     password: pass_pg

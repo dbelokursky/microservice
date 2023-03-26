@@ -36,6 +36,7 @@ public class AuthControllerV1 {
 
       HttpHeaders headers = new HttpHeaders();
       headers.add("Authorization", token);
+      headers.add("App-Username", user.getLogin());
 
       return new ResponseEntity<>(headers, HttpStatus.OK);
     } catch (AuthenticationException e) {

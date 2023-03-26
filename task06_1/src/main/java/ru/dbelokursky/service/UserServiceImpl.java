@@ -2,10 +2,10 @@ package ru.dbelokursky.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.dbelokursky.exception.UserNotFoundException;
 import ru.dbelokursky.mapper.UserMapper;
 import ru.dbelokursky.repository.UserRepository;
 import ru.dbelokursky.rest.model.User;
-import ru.dbelokursky.exception.UserNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +32,10 @@ public class UserServiceImpl implements UserService{
   @Override
   public void delete(long id) {
     userRepository.deleteById(id);
+  }
+
+  @Override
+  public User findByUsername(String username) {
+    return userRepository.findByUsername(username).map(userMapper::userEntityToUser).orElseThrow(UserNotFoundException::new);
   }
 }
