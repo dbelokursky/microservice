@@ -15,7 +15,7 @@ public class Role {
 
   @Id
   @Column("id")
-  private long id;
+  private Long id;
 
   @Column("name")
   private String name;

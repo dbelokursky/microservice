@@ -11,5 +11,5 @@ import org.springframework.data.relational.core.mapping.Table;
 public class RoleRef {
 
   @Column("auth_role")
-  private long roleId;
+  private Long roleId;
 }
