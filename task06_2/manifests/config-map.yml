@@ -40,3 +40,5 @@ data:
       token:
         secret: j6T@bdbmtCHWzTwb8SvMh9V$2sxU&FmM5
         lifetime: 900000
+    app:
+      userServiceUrl: http://task04-service/user

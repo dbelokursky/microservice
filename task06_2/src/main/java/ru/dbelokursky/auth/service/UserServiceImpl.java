@@ -1,9 +1,11 @@
 package ru.dbelokursky.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.dbelokursky.auth.client.UserServiceClient;
+import ru.dbelokursky.auth.dto.UserRegisterRequest;
 import ru.dbelokursky.auth.entity.Role;
 import ru.dbelokursky.auth.entity.RoleRef;
 import ru.dbelokursky.auth.entity.User;
@@ -22,6 +24,8 @@ public class UserServiceImpl implements UserService {
   private final RoleRepository roleRepository;
 
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+  private final UserServiceClient userServiceClient;
 
   @Override
   public void create(User user) {
@@ -46,5 +50,13 @@ public class UserServiceImpl implements UserService {
   public List<Role> getUserRoles(User user) {
     List<Long> roleIds = user.getRoleIds().stream().map(RoleRef::getRoleId).toList();
     return roleRepository.findAllByIdIn(roleIds);
+  }
+
+  @Transactional
+  @Override
+  public void register(UserRegisterRequest request) {
+    User user = new User().setLogin(request.username()).setPassword(request.password());
+    create(user);
+    userServiceClient.createProfile(request);
   }
 }

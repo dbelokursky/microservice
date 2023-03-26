@@ -21,8 +21,8 @@ import ru.dbelokursky.auth.security.JwtTokenProvider;
 public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
   private final static String LOGIN_ENDPOINT = "/api/v1/auth/login";
+  private final static String REGISTER_ENDPOINT = "/api/v1/auth/register";
   private final static String ACTUATOR_ENDPOINT = "/actuator/**";
-  private final static String H2_CONSOLE_ENDPOINT = "/h2-console/**";
   private final static String ADMIN_ENDPOINT = "/api/v1/auth/admin";
   private final JwtTokenProvider jwtTokenProvider;
   private final JwtTokenFilter filter;
@@ -41,7 +41,7 @@ public class SecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFil
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeHttpRequests()
-        .requestMatchers(H2_CONSOLE_ENDPOINT, LOGIN_ENDPOINT, ACTUATOR_ENDPOINT).permitAll()
+        .requestMatchers(REGISTER_ENDPOINT, LOGIN_ENDPOINT, ACTUATOR_ENDPOINT).permitAll()
         .requestMatchers(ADMIN_ENDPOINT).hasRole("ROLE_ADMIN")
         .anyRequest().authenticated()
         .and()

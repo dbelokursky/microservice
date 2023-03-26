@@ -43,3 +43,6 @@ jwt:
 logging:
   level:
     org.springframework: DEBUG
+
+app:
+  userServiceUrl: http://task04-service/user

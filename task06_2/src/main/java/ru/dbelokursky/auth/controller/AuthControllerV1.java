@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 import ru.dbelokursky.auth.dto.AuthenticationRequestDto;
+import ru.dbelokursky.auth.dto.UserRegisterRequest;
 import ru.dbelokursky.auth.entity.User;
 import ru.dbelokursky.auth.security.JwtTokenProvider;
 import ru.dbelokursky.auth.service.UserService;
@@ -46,6 +47,13 @@ public class AuthControllerV1 {
 
   @GetMapping(value = "/validate")
   public ResponseEntity<Void> validate() {
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+
+  @PostMapping("/register")
+  public ResponseEntity<Void> register(@RequestBody UserRegisterRequest request) {
+    userService.register(request);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
