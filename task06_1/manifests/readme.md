@@ -30,4 +30,7 @@ kubectl apply -f deployment.yml -n m
 kubectl apply -f service.yml -n m
 kubectl apply -f routes.yml -n m
 
+Postman:
+https://raw.githubusercontent.com/dbelokursky/microservice/main/task06_1/src/main/resources/task04%20dashboard-1673210315547.json
+
 ![Архитектура](../assets/img/forward-auth-with-login.png)
