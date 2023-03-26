@@ -1,0 +1,108 @@
+{
+  "info": {
+    "_postman_id": "e0a6b86b-d5a3-4779-9d29-eb5cd187d8ee",
+    "name": "Task06",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "5369103"
+  },
+  "item": [
+    {
+      "name": "API Gateway",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"login\": \"admin\",\n    \"password\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin4\",\r\n    \"password\": \"admin4\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://arch.homework/auth/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "arch",
+                "homework"
+              ],
+              "path": [
+                "auth",
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3OTgxODE3NCwiZXhwIjoxNjc5ODE5MDc0LCJyb2xlcyI6W3siaWQiOjEsIm5hbWUiOiJST0xFX1VTRVIiLCJjcmVhdGVkIjoxNjc3MzY5NjAwMDAwLCJ1cGRhdGVkIjoxNjc3MzY5NjAwMDAwfSx7ImlkIjoyLCJuYW1lIjoiUk9MRV9BRE1JTiIsImNyZWF0ZWQiOjE2NzczNjk2MDAwMDAsInVwZGF0ZWQiOjE2NzczNjk2MDAwMDB9XX0.VlKp8ZgOIMOdocd17wRTQU3q1nt6sHiLwurL0mY1s_8",
+                "type": "text"
+              },
+              {
+                "key": "App-Username",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://arch.homework/profile",
+              "protocol": "http",
+              "host": [
+                "arch",
+                "homework"
+              ],
+              "path": [
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

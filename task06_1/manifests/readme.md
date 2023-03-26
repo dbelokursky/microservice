@@ -1,5 +1,8 @@
 kubectl create namespace m
 
+Манифесты
+https://github.com/dbelokursky/microservice/tree/main/task06_1/manifests
+
 kubectl apply -f secret.yml -n m
 kubectl apply -f config-map.yml -n m
 kubectl apply -f deployment.yml -n m
@@ -7,16 +10,6 @@ kubectl apply -f service.yml -n m
 kubectl apply -f ingress.yml -n m
 kubectl apply -f postgres-pv.yml -n m
 kubectl apply -f postgres-pvc.yml -n m
-
-kubectl delete -f secret.yml -n m
-kubectl delete -f config-map.yml -n m
-kubectl delete -f deployment.yml -n m
-kubectl delete -f service.yml -n m
-kubectl delete -f ingress.yml -n m
-kubectl delete -f postgres-pv.yml -n m
-kubectl delete -f postgres-pvc.yml -n m
-kubectl delete -f service-monitor.yml -n m
-kubectl delete -f nginx-ingress-service-monitor.yml -n m
 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/ \
 && helm repo add bitnami https://charts.bitnami.com/bitnami \
@@ -27,7 +20,14 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx/ \
 --set volumePermissions.enabled=true \
 --set auth.username=user_pg \
 --set auth.password=pass_pg \
---set auth.database=user_db 
+--set auth.database=user_db
 
+Манифесты:
+https://github.com/dbelokursky/microservice/tree/main/task06_2/manifests
 
-helm install psql bitnami/postgresql -n m --set persistence.existingClaim=postgres-pvc --set volumePermissions.enabled=true --set auth.username=user_pg --set auth.password=pass_pg --set auth.database=user_db 
+kubectl apply -f config-map.yml -n m
+kubectl apply -f deployment.yml -n m
+kubectl apply -f service.yml -n m
+kubectl apply -f routes.yml -n m
+
+![Архитектура](../assets/img/forward-auth-with-login.png)

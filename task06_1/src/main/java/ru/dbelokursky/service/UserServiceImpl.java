@@ -1,21 +1,25 @@
 package ru.dbelokursky.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.dbelokursky.exception.UserNotFoundException;
 import ru.dbelokursky.mapper.UserMapper;
 import ru.dbelokursky.repository.UserRepository;
 import ru.dbelokursky.rest.model.User;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
   private final UserRepository userRepository;
+
   private final UserMapper userMapper;
 
   @Override
   public void create(User user) {
+    user.setUserStatus(1);
     userRepository.save(userMapper.userToUserEntity(user));
   }
 
